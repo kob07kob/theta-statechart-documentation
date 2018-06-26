@@ -1,5 +1,5 @@
 %----------------------------------------------------------------------------
-\chapter{Korlátos modell ellenörző}
+\chapter{Korlátos modell ellenőrző}
 \label{sec:bmc}
 %----------------------------------------------------------------------------
 \section{Modell ellenőrzés}
@@ -42,7 +42,7 @@ A \verb+Path+ osztályt használom ennek a leírására. Tárolom az összes ál
 public boolean checkpath()
 \end{lstlisting}
 
-Azt ellenőrzi, hogy az útvonal helyes-e azaz minden egyes konfigurációból valóban jó konfigurációba léptünk és az elsütött tranzició elsüthető volt (a forrásállapota aktív volt)
+Azt ellenőrzi, hogy az útvonal helyes-e azaz minden egyes konfigurációból valóban jó konfigurációba léptünk és az elsütött tranzíció elsüthető volt (a forrásállapota aktív volt)
 
 \begin{lstlisting}[language=java,breaklines=true]
 public StateConfiguration getResultConfiguration()

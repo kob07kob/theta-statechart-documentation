@@ -27,10 +27,10 @@ Először beolvassuk a változókat, ezekkel létrehozok egy ExpressionConverter
 private static void addRegiontoThetaSC(final Region reg, final MutableRegion r) 
 \end{lstlisting}
 
-Ez a függvény rekurzív, abból a szempontból, hogy ha egy régión belül van egy másik régió akkor meghívja önmagát. Minden elemhez van egy ehhez hasonló függvény, aminek a bemenete, egy gammás elem és egy annak megfelelő thetás elem, és a transzformátor a gammás elemben lévő belső elemeket létrehozza és berakja a thetás elembe. Ez így megy addig amíg az adott elemekben vannak újjabb elemek.
+Ez a függvény rekurzív, abból a szempontból, hogy ha egy régión belül van egy másik régió akkor meghívja önmagát. Minden elemhez van egy ehhez hasonló függvény, aminek a bemenete, egy gammás elem és egy annak megfelelő Thetás elem, és a transzformátor a gammás elemben lévő belső elemeket létrehozza és berakja a Thetás elembe. Ez így megy addig amíg az adott elemekben vannak újabb elemek.
 
 %----------------------------------------------------------------------------
 \section{ExpressionConverter}
 %----------------------------------------------------------------------------
 
-A legnagyobb nehézség az akciókban illetve őrfeltételekben használt kifejezések megfelelő átkonvertálása, ehhez használom a ExpressionConverter segéd osztályt. A Thetában van erre egy segítség a DispachTable. Ennek a segítségével könnyen és átláthatóan össze lehet kötni a különböző gammás Expression-öket a thetás Expr<> osztályokkal
+A legnagyobb nehézség az akciókban illetve őrfeltételekben használt kifejezések megfelelő átkonvertálása, ehhez használom a ExpressionConverter segéd osztályt. A Thetában van erre egy segítség a DispachTable. Ennek a segítségével könnyen és átláthatóan össze lehet kötni a különböző gammás Expression-öket a Thetás Expr<> osztályokkal

@@ -2,7 +2,7 @@
 \chapter{\pojo}
 \label{sec:pojochapter}
 
-Ebben a fajezetben bemutatom a {\thetaSc} reprezentációt. Mivel egy már korábban mások által elkezdett projektet fejeztem be külön kitérek arra is, hogy mely részek a saját fejlesztésem részei.
+Ebben a fejezetben bemutatom a {\thetaSc} reprezentációt. Mivel egy már korábban mások által elkezdett projektet fejeztem be külön kitérek arra is, hogy mely részek a saját fejlesztésem részei.
 %----------------------------------------------------------------------------
 \section{Az állapotgép}
 %----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ Előfordulhat az is, hogy több állapotot valamilyen közös tulajdonságuk sze
 
 Itt kell bevezetni a régió fogalmát. Minden állapot egy régióban van, és minden régióban egyszerre csak egy állapot írhatja le a rendszerünket. Az összetett állapotok tehát tartalmaznak legalább egy régiót.
 
-A régión belül van egy úgynevezett pszeudó állapot, ami kijelöli, hogy egy régióba lépés esetén melyik állapotba lépjünk. Három fajtája van a history, deephistory és a sima kezdő állapot. A sima mindig ugyanarra az állapotra mutat, a history megjegyzi, hogy kilépéskor melyik volt aktív és oda léptet vissza. A deephistory még ennél is többet jegyez meg, ha a kilépéskori aktív állapot, egy összetett állapot, akkor az azon belüli aktív állapotokat is megjegyzi.
+A régión belül van egy úgynevezett pszeudo állapot, ami kijelöli, hogy egy régióba lépés esetén melyik állapotba lépjünk. Három fajtája van a history, deephistory és a sima kezdő állapot. A sima mindig ugyanarra az állapotra mutat, a history megjegyzi, hogy kilépéskor melyik volt aktív és oda léptet vissza. A deephistory még ennél is többet jegyez meg, ha a kilépéskori aktív állapot, egy összetett állapot, akkor az azon belüli aktív állapotokat is megjegyzi.
 
 \begin{figure} [!ht]
 	\centering
@@ -40,7 +40,7 @@ A régión belül van egy úgynevezett pszeudó állapot, ami kijelöli, hogy eg
 \label{sec:thetaleiras}
 %----------------------------------------------------------------------------
 
-Az állapotgép reprezentáció Java-ban készült el. Az egyes osztályok megfeleltethetők az előző fejezetben leírt állapotgép elemekkel. Mindegyik osztálynak vannak a tárolt elemeihez getter/setter, a tárolóikhoz pedig add függvényei. Illetve néhány segédfüggvény, ami segít majd az analízis közben. A projekt már korábbi munkák folytatásaként jött létre. Az én hozzájárulásom a pszeudó állapotok implementálása, az időzített események kezelése és néhány segéd függvény, illetve apróbb javítások.
+Az állapotgép reprezentáció Java-ban készült el. Az egyes osztályok megfeleltethetők az előző fejezetben leírt állapotgép elemekkel. Mindegyik osztálynak vannak a tárolt elemeihez getter/setter, a tárolóikhoz pedig add függvényei. Illetve néhány segédfüggvény, ami segít majd az analízis közben. A projekt már korábbi munkák folytatásaként jött létre. Az én hozzájárulásom a pszeudo állapotok implementálása, az időzített események kezelése és néhány segéd függvény, illetve apróbb javítások.
 
 
 \begin{lstlisting}[language=java,breaklines=true]
@@ -81,7 +81,7 @@ interface PseudoState {}
 
 Van neve, tárolja azt az egy állapotot ami a régiójába lépéskor az aktuális állapot lesz. Kötelezően kell legyen egy szülő régiója (Region).
 
-Három megvalósító osztály a \verb+MutableInitState+ a sima kezdő ~ a \verb+MutableHistorytate+ a history~ a \verb+MutableDeepHistoryState+ pedig a deephistory pszeudó állapothoz
+Három megvalósító osztály a \verb+MutableInitState+ a sima kezdő ~ a \verb+MutableHistorytate+ a history~ a \verb+MutableDeepHistoryState+ pedig a deephistory pszeudo állapothoz
 
 \begin{lstlisting}[language=java,breaklines=true]
 interface Action {}
