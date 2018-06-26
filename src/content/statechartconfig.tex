@@ -1,0 +1,45 @@
+%----------------------------------------------------------------------------
+\chapter{Állapotgép konfiguráció}
+\label{sec:stateconfig}
+%----------------------------------------------------------------------------
+\section{Aktív állapot}
+%----------------------------------------------------------------------------
+Az állapotgép a rendszerünk összes lehetséges állapotát mutatja. Analízis közben azonban fontos hogy azt is tudjuk nézni, hogy mik az aktív állapotok, azaz melyek írják le a rendszerünk pillanatnyi helyzetét.
+
+Az aktív állapotoknak van több szabálya.
+\begin{itemize}
+	\item Egy régión belül, pontosan egy aktív állapot lehet (közvetlen gyerekekre nézve)
+	\item Egy aktív állapot összes szülő állapota is aktív
+	\item Minden régióban van aktív állapot
+\end{itemize}
+
+%----------------------------------------------------------------------------
+\section{A megvalósító osztály}
+%----------------------------------------------------------------------------
+
+A StateConfiguration osztályban valósítom meg. Egy ilyen példány tartalmazza az állapotgép reprezentációt (Sc) továbbá egy listát az épp aktuális állapotokról és -egy később igen hasznosnak bizonyuló segítség- tároljuk, hogy az adott konfiguráció mely tranzíciók elsütésével érhető el a kiindulási állapotból, illetve hogy eközben milyen akciók lettek végrehajtva. Oly módon, hogy minden egyes tranzícióhoz ebben a listában két akció tartozik, egy azokhoz az akciókhoz, amik a tranzíció őrfeltétel ellenőrzés előtt hajtódnak végre, egy pedig azokhoz amik utána.
+
+\begin{lstlisting}[language=bash,morekeywords={sudo,apt\-get},alsoletter={-},breaklines=true]
+public static StateConfiguration create(final Sc sc)
+\end{lstlisting}
+
+Létrehozható egy {\thetaSc}ből.
+
+\begin{lstlisting}[language=bash,morekeywords={sudo,apt\-get},alsoletter={-},breaklines=true]
+public void init()
+\end{lstlisting}
+
+Aktiválja az állapotgépet, azaz mindenhol a kezdő állapot szerint kijelöli az aktív állapotokat
+
+\begin{lstlisting}[language=bash,morekeywords={sudo,apt\-get},alsoletter={-},breaklines=true]
+	public Collection<Transition> getFireableTransitions()
+\end{lstlisting}
+
+Visszaad egy listát az összes olyan tranzícióról, ami tüzelhető az adott konfigurációban. Vagyis a tranzíció forrásállapota aktív.
+
+\begin{lstlisting}[language=bash,morekeywords={sudo,apt\-get},alsoletter={-},breaklines=true]
+public StateConfiguration fire(final Transition tr)
+\end{lstlisting}
+
+Visszaad egy új állapotgép konfigurációt, ami a paraméterben megadott tranzíció elsütése után kialakul. Saját magát nem változtatja!
+

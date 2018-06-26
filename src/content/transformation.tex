@@ -1,0 +1,36 @@
+%----------------------------------------------------------------------------
+\chapter{\transzformacio}
+\label{sec:transzformacio}
+
+A Gamma keretrendszert is szeretnénk összekötni az \hyperref[sec:thetaleiras]{előző} fejezetben bemutatott {\thetaSc}pel. Ezért írtam egy segéd osztályt, ami képes a beolvasott EMF-es {\gammaSc}et átalakítani {\thetaSc}pé.
+%----------------------------------------------------------------------------
+\section{{\gammaSc}}
+%----------------------------------------------------------------------------
+Már korábban említettem az \hyperref[sec:archiutecture]{Architektúra} fejezetben, hogy a {\gammaSc} egy EMF alapú állapotgép reprezentáció. Így a sémája nem sokban különbözik az \hyperref[sec:thetaleiras]{előző} fejezetben leírt {\thetaSc}től. Ez megkönnyíti a transzformáció folyamatát. Az erre a célra írt segédosztályokat mutatom be a következő részekben
+
+
+%----------------------------------------------------------------------------
+\section{GammaSctoThetaSCConverter}
+%----------------------------------------------------------------------------
+
+Ez az osztály egy statikus \verb+convert()+ függvény meghívásával transzformál
+
+\begin{lstlisting}[language=java ,breaklines=true]
+public static MutableSc Convert(final StatechartDefinition gammaSC, final String name) 
+\end{lstlisting}
+
+Látható, hogy bemenetként egy beolvasott EMF gyökér elemet várunk (ez a {\gammaSc}et reprezentáló StatechartDefinition osztály) a name pedig a {\thetaSc} neve lesz.
+
+Először beolvassuk a változókat, ezekkel létrehozok egy ExpressionConverter-t amit a következő szekcióban mutatok be. Utána beolvassuk a gyökér régiót ami az addRegiontoThetaSC() rekurzív függvény meghívásával történik utána a tranzíciókat adom az állapotgéphez (frissítve a már korábban létrehozott állapotokat)
+
+\begin{lstlisting}[language=java ,breaklines=true]
+private static void addRegiontoThetaSC(final Region reg, final MutableRegion r) 
+\end{lstlisting}
+
+Ez a függvény rekurzív, abból a szempontból, hogy ha egy régión belül van egy másik régió akkor meghívja önmagát. Minden elemhez van egy ehhez hasonló függvény, aminek a bemenete, egy gammás elem és egy annak megfelelő thetás elem, és a transzformátor a gammás elemben lévő belső elemeket létrehozza és berakja a thetás elembe. Ez így megy addig amíg az adott elemekben vannak újjabb elemek.
+
+%----------------------------------------------------------------------------
+\section{ExpressionConverter}
+%----------------------------------------------------------------------------
+
+A legnagyobb nehézség az akciókban illetve őrfeltételekben használt kifejezések megfelelő átkonvertálása, ehhez használom a ExpressionConverter segéd osztályt. A Thetában van erre egy segítség a DispachTable. Ennek a segítségével könnyen és átláthatóan össze lehet kötni a különböző gammás Expression-öket a thetás Expr<> osztályokkal

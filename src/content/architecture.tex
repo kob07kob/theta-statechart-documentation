@@ -1,0 +1,25 @@
+%----------------------------------------------------------------------------
+\chapter{\architecture}
+\label{sec:archiutecture}
+
+Ebben a fejezetben megmutatom milyen már működő keretrendszereket használtam, illetve próbáltam hozzájárulni fejlesztésükhöz a féléves munkám során
+
+%----------------------------------------------------------------------------
+\section{Gamma keretrendszer}
+%----------------------------------------------------------------------------
+A félév során megpróbáltam már meglévő keretrendszerekbe beledolgozni. Ilyen keretrendszer a Gamma\footnote{A Gamma hivatalos oldala: \url{https://inf.mit.bme.hu/node/6028}}, ami a tanszéken fejlesztett rendszer és összetett állapotgépek analízisét teszi lehetővé számos eszköz segítségével.
+
+Az Uppaal model checker\footnote{Az Uppaal weboldala: \url{http://www.uppaal.org/}} például lehetővé teszi a {\gammaSc} modellellenőrzését. Viszont ez az eszköz nem tudja kezelni az összetett állapotgépeket, ezért át kell alakítani a {\gammaSc}et, hogy ne legyenek már benne összetett állapotok, ekkor viszont információt veszítünk\footnote{Magyarázat \hyperref[infovesztes]{Az összetett állapotgépeknél}} és az analízis jelentősen lassabb lehet. Van igény tehát olyan modellellenőrzésre a Gamma keretrendszeren belül, ami kihasználja az összetettséget.
+
+A {\gammaSc}ek EMF\footnote{Eclipse Modelling Framework \url{https://www.eclipse.org/modeling/emf/}} és XTEXT\footnote{\url{https://www.eclipse.org/Xtext/}} technológiát használnak, ami nehezebbé teszi a modell architektúra tetszőleges kialakítását, ezért a félév során egy új ezektől a technológiáktól nem függő állapotgép Pojo-t csináltam amit, majd a következő fejezetben fogok bemutatni.
+
+Még egy hasznos funkciója a Gammának, hogy lehet vele Yakindu\footnote{Egy nagyon elterjedt állapotgép szerkesztő eszköz, weboldala: \url{https://www.itemis.com/en/yakindu/state-machine/}}-ban szerkesztett állapotgépeket {\gammaSc}pé alakítani.
+
+
+%----------------------------------------------------------------------------
+\section{Theta keretrendszer}
+%---------------------------------------------------------------------------- 
+
+A Theta\footnote{hivatalos weboldala: \url{https://inf.mit.bme.hu/en/theta}} szintén a tanszéken fejlesztett eszköz, (ami egyéb dolgok mellett) interfészt nyújt több SMT Solverhez, megvalósít különböző absztrakciós módszereket. Ezek a funkciók nagyon hasznosak lehetnek az állapotgépek modellellenőrzéséhez.
+
+Nem meglepő tehát, hogy a már említett Pojo-t ebbe a keretrendszerbe szeretnénk beépíteni. Ezt a Pojo-t innentől tehát {\thetaSc}-nek fogom nevezni. 
