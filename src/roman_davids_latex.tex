@@ -12,21 +12,22 @@
 \newcommand{\vikszerzoKeresztnev}{Dávid}
 
 \newcommand{\vikkonzulensAMegszolitas}{}
-\newcommand{\vikkonzulensAVezeteknev}{Tóth}
-\newcommand{\vikkonzulensAKeresztnev}{Tamás}
+\newcommand{\vikkonzulensAVezeteknev}{Vörös}
+\newcommand{\vikkonzulensAKeresztnev}{András}
 
 \newcommand{\vikkonzulensBMegszolitas}{}
-\newcommand{\vikkonzulensBVezeteknev}{Vörös}
-\newcommand{\vikkonzulensBKeresztnev}{András}
+\newcommand{\vikkonzulensBVezeteknev}{Hajdú}
+\newcommand{\vikkonzulensBKeresztnev}{Ákos}
 
 \newcommand{\vikkonzulensCMegszolitas}{}
 \newcommand{\vikkonzulensCVezeteknev}{}
 \newcommand{\vikkonzulensCKeresztnev}{}
 
-\newcommand{\vikcim}{Állapottérképek modellellenőrzése} % Cím
+\newcommand{\vikcim}{Intervallum-alapú absztrakt interpretációs algoritmus
+	fejlesztése invariáns tulajdonságok ellenőrzésére} % Cím
 \newcommand{\viktanszek}{\bmemit} % Tanszék
-\newcommand{\vikdoktipus}{Önálló labor dokumentáció} % Dokumentum típusa (\bsc vagy \msc)
-\newcommand{\vikmunkatipusat}{Önálló labor dokumentációt} % a "hallgató nyilatkozat" részhez: szakdolgozatot vagy diplomatervet
+\newcommand{\vikdoktipus}{\bsc} % Dokumentum típusa (\bsc vagy \msc)
+\newcommand{\vikmunkatipusat}{szakdolgozatot} % a "hallgató nyilatkozat" részhez: szakdolgozatot vagy diplomatervet
 %\newcommand{\vikdoktipus}{Önálló labor}
 
 \input{include/tdk-variables}
@@ -35,9 +36,9 @@
 
 %TODO Language configuration -- choose one
 % Beállítások magyar nyelvű dolgozathoz
-\input{include/thesis-hu}
+%\input{include/thesis-hu}
 % Settings for English documents
-%\input{include/thesis-en}
+\input{include/thesis-en}
 
 \input{include/preamble}
 
@@ -67,8 +68,8 @@
 
 % Declaration and Abstract
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%\include{include/declaration} %TODO Hallgatói nyilatkozat -- TDK és OTDK esetén törlendő!
-%\include{content/abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
+\include{include/declaration} %TODO Hallgatói nyilatkozat -- TDK és OTDK esetén törlendő!
+\include{content/abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
 
 
 % The main part of the thesis
@@ -77,12 +78,15 @@
 
 %TODO import your own content
 \include{content/introduction}
-\include{content/architecture}
-\include{content/pojo}
-\include{content/transformation}
-\include{content/statechartconfig}
-\include{content/bmc}
+\include{content/saai}
+\include{content/cfa}
+\include{content/intervallybrary}
 \include{content/verification}
+%\include{content/pojo}
+%\include{content/transformation}
+%\include{content/statechartconfig}
+%\include{content/bmc}
+%\include{content/verification}
 %\include{content/latex-tools}
 %\include{content/thesis-format}
 %\include{content/template-usage}
@@ -103,7 +107,7 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %\addcontentsline{toc}{chapter}{\bibname}
 %\bibliography{bib/mybib}
-
+\include{content/references}
 
 % Appendix
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

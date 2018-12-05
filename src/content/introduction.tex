@@ -3,18 +3,10 @@
 \label{sec:intro}
 %----------------------------------------------------------------------------
 
-A technológia fejlődésével életünk legtöbb területén egyre jobban hagyatkozunk szoftverek használatára. Általában a feladat elvégzését gyorsabban, megbízhatóbban végzik el, mintha emberi munkaerőt alkalmaznánk. Így nem meglepő, hogy olyan helyeken is alkalmazzuk, ahol a biztonságos, hibamentes üzemeltetés alapfeltétel. Az olyan rendszereket ahol a hibás működés súlyos anyagi, vagy akár ember életekben mérhető károkat okoz, biztonságkritikus rendszereknek nevezzük. Ilyen rendszerek vannak például az autóknál, vasutaknál, repülőknél, reaktoroknál, vagy egészségügyi rendszereknél. Ezeken a területeken is egyre több feladatot programok végeznek el. Mivel a helyes viselkedés létfontosságú, fontos, hogy ezeknek a szoftvereknek tudjuk bizonyítani a hibamentességét.
+Todays softwares are made from millions of lines by hundreds or even thousands of programmers. According to Steve McConnell's book Code Complete on average there are 10-50 errors in 1000 lines of code. So it is inevitable that there will be a lot of mistakes during making these huge softwares. On the other hand we rely on these various parts of our lives, so if the program has bugs it causes different effects. If the outcome of this malfunction dangers great fortunes os human health or even lives than we say it is a safety critical system. We want to make sure that these systems are fault proof. Static analysis is a method to analyze the software without actually executing it, detecting possible vulnerable part of the source code. Some problems such as simple coding errors are easy to find, however we can detect other, more complicated vulnerabilities like possible zero division or other logical errors. However checking the whole software can be impossible within a reasonable time. In this case abstracting can simplify the problem, and make it possible to analyze certain behaviors of the software. 
 
-Viszont ezek a rendszerek általában nagyon komplexek, ezért nehéz rajtuk bizonyításokat végezni. Erre az egyik megoldás, hogy a rendszernek egy egyszerűsítésén dolgozunk, ahol csak a számunkra fontos jellemzőit tartjuk meg. Ez a modellezés. Számos modellezési technológiák vannak, én a félév során az állapottérképes modellezéssel foglalkoztam. Ezt a technikát gyakran alkalmazzák iparban is, sok eszköz elérhető ezek szerkesztésére, vizsgálatára. Hasznos tehát, hogy minél megbízhatóbb ugyanakkor elég gyors ellenőrzéseket tudjunk végezni ezeken a modelleken.
+Static Analysis by Abstract Interpretation (SAAI) was introduced by Cousot in \hyperref[sec:ref]{[2]}. An easy to understand description is available at \hyperref[sec:ref]{[1]}. Able to analyze certain behaviors of the software, by making an abstraction which focuses on this behavior so it is much simpler than the whole software, but the required conditions can still be tested. There are plenty of abstraction methods such as sign or interval abstraction. 
 
-Félév során én az állapotgép modellezéssel, és az ezeken a modelleken végzett ellenőrzéssel foglalkoztam. A \hyperref[sec:archiutecture]{második fejezetben} megmutatom, hogy milyen meglévő projekteket, használtam, illetve mi módon próbáltam ezeket tovább fejleszteni.
 
-\hyperref[sec:thetaleiras]{Harmadik fejezetben} az általam is tovább fejlesztett java állapotgép implementációt mutatom be, kiemelve, hogy mi a saját munkám.
 
-\hyperref[sec:transzformacio]{Negyedik fejezetben} bemutatom a {\gammaSc}ek transzformációját {\thetaSc}pé.
 
-\hyperref[sec:stateconfig]{Ötödik fejezet} az állapotgép konfigurációt mutatja meg. 
-
-\hyperref[sec:bmc]{Hatodik fejezetben} leírom azt a modellellenőrzőt, amit a félév során sikerült implementálnom. 
-
-\hyperref[sec:verifikacio]{Hetedik fejezet} egy rövid verifikáció az elvégzett munkámhoz. 
