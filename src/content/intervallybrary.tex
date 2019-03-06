@@ -1,6 +1,6 @@
 
 %----------------------------------------------------------------------------
-\chapter{Interval Abstraction}
+\chapter{Abstract Interpretation with Intervals}
 \label{sec:intervalabstraction}
 %----------------------------------------------------------------------------
 
@@ -550,7 +550,7 @@ For instance in the previous example, there can be an assumption that the variab
 
 
 %---------------------------------------------------------------------------
-\section{Abstracted information}
+\section{Loss of information during interval abstraction}
 %---------------------------------------------------------------------------- 
 
 Abstraction always means that some information will inevitably get lost. Using Interval representation as labels for the location also has information losses.
@@ -558,3 +558,12 @@ Abstraction always means that some information will inevitably get lost. Using I
 During No Partition tactic we allowed that the intervals can represent incorrect values as long as it represents all the correct (possible) values. This already is some lost information.
 
 Another even bigger concern that we lose some major connection between variables. Since every variable is maintained independently from the others. Let there be two variables $var1, var2$. There could be a correlation such that in a location $var1=1$ if $var2=1$ and $var1=0$ otherwise. The above described interval representation would label this: $var1 \in (0, 1) var2 \in (-\infty, +\infty)$. So we lost the information that $var1$ is only $1$ if $var2=1$. Fortunately this problem only widens the possible values.
+
+%---------------------------------------------------------------------------
+\section{interval abstraction with color classes}
+%--------------------------------------------------------------------------- 
+
+
+%---------------------------------------------------------------------------
+\section{Detailed example run on a CFA}
+%--------------------------------------------------------------------------- 
