@@ -4,114 +4,81 @@
 \label{sec:intervalabstraction}
 %----------------------------------------------------------------------------
 
+In this chapter we introduce our library for the interval abstraction. First we show the basic elements of intervals and the possible operations on them. Then we introduce Interval representation, which is a proper implementation of the interval abstraction type for abstraction interpretation. We prove the correctness of this representation. Show two possible widening tactics. Discuss some weaknesses of the abstraction and possible solutions. In section \ref{sec:detailedEx} we present how the algorithm works on an example.
+
 %----------------------------------------------------------------------------
-\section{Library}
+\section{Intervals}
 %---------------------------------------------------------------------------- 
 
-\begin{definition}{Bound}
-	A Bound is a specified whole number or Infinite (can be positive or negative) $Bound \in \mathbb{Z} \lor Bound \in \{ +\infty, -\infty \}$
-\end{definition}
+An interval consists of two bounds an $upperBound$ and a $lowerBound$, where bounds are whole numbers supplied with the opportunity to be infinite (both positive or negative) we will refer t that as $\infty$.
 
-\begin{definition}{max($Bound1$, $Bound2$)=}
+$Interval=(lowerBound;upperBound)$
 
-	if $Bound1 == +\infty \lor Bound2 == +\infty$ then $+\infty$
-	
-	else if $Bound1 == -\infty \lor Bound1<Bound2$ then $Bound2$
-	
-	else $Bound1$	
-\end{definition}
+The interval represents the whole numbers, between the two bounds (including the bound itself).
+So for example an interval $A=(0;4)$ then it represents these numbers: ${0;1;2;3;4}$
 
-\begin{definition}{min($Bound1$, $Bound2$)=}
+We will say an interval is valid if $lowerBound \leq upperBound$. Otherwise we will say it is invalid. Empty intervals can be represented by invalid intervals.
 
-if $Bound1 == -\infty \lor Bound2 == -\infty$ then $-\infty$
+Some general intervals are named as the following:
 
-else if $Bound1 == +\infty \lor Bound1>Bound2$ then $Bound2$
+\begin{itemize}
+\item $Ei=(1;-1)$ (empty interval)
+\end{itemize}
 
-else $Bound1$	
-\end{definition}
+\begin{itemize}
+\item $Ii=(-\infty;\infty)$ (initial interval) $\Omega$
+\end{itemize}
 
-\begin{definition}{$Bound+K \in \mathbb{Z}$)=}
-	
-	if $Bound == +\infty \lor Bound == -\infty$ then $Bound1$
-	
-	else ($Bound \in \mathbb{Z}$) then $Bound+K$
-\end{definition}
+%----------------------------------------------------------------------------
+\subsection{Operations}
+%---------------------------------------------------------------------------- 
 
-\begin{definition}{$|Bound|$=}
-	
-	if min($Bound$, $0$) $==0$ then $Bound$
-	
-	else $Bound*(-1)$
-\end{definition}
-	
-	Or
-	
-\begin{definition}{$|Bound|$=}
-	
-	if $Bound \in  \mathbb{Z}$ then $|Bound|$ is the regular $absolute function$ in $\mathbb{Z}$
-	
-	else $|Bound| = +\infty$
-\end{definition}
+\subsubsection{Section}
 
-\begin{definition}{Interval}
-	An interval is specified with two Bounds: the lower Bound($LB$) and the higher Bound($HB$).
-	
-	ex.: $(2;+\infty)$, $(3;1)$
-\end{definition}
+Section of two intervals: $Interval1(LB;UB) \cap Interval1(LB;UB) = Result(LB;UB)$
 
-\begin{definition}{Interval is valid}
-	
-	if min($LB$, $HB$) == $LB \neq +\infty \land$ max($LB$, $HB$) == $HB  \neq -\infty$
-	
-	Note: empty interval ($Ei$) $\equiv$ invalid interval
-	
-	Note2: intervals $(+\infty, +\infty)$, $(-\infty, -\infty)$ are also empty intervals 
-	
-	ex.: $(2;+\infty)$ and $(0;0)$ is valid, but $(3;1)$ is not valid $\equiv$ invalid
-\end{definition}
+if $Interval1, Interval2$ is valid then
 
-\begin{definition}{section of two intervals $Interval1 \cap Interval1$=}
-	
-	if $Interval1, Interval2$ is valid then 
-	
-	$LB$=max($Interval1.LB$, $Interval2.LB$)
-	
-	$RB$=min($Interval1.HB$, $Interval2.HB$)
-	
-	else $Ei$
-	
-	ex.: $(2,8)\cap(1,3)=(2,3)$, $(2,8)\cap Ei=Ei$
-\end{definition}
+$Result.LB=max(Interval1.LB, Interval2.LB)$
 
-\begin{definition}{union of two intervals $Interval1 \cup Interval1$=}
-	
-	if $Interval1, Interval2$ is valid then 
-	
-	$LB$=min($Interval1.LB$, $Interval2.LB$)
-	
-	$RB$=max($Interval1.HB$, $Interval2.HB$)
-	
-	else if $Interval1$ is valid then $Interval1$
-	
-	else if$ Interval2$ is valid then $Interval2$
-	
-	else $Ei$
-	  
-	ex.: $(2,8)\cup(1,3)=(1,8)$, $(2,8)\cup Ei=(2,8)$
-\end{definition}
+$Result.UB=min(Interval1.UB, Interval2.UB)$
 
-\begin{definition}{subtraction of two intervals (no partition) $Interval1 \setminus Interval2$=}
+else $Result=Ei$ (empty interval)
+
+example: $(2,8)\cap(1,3)=(2,3)$, $(2,8)\cap Ei=Ei$
+
+\subsubsection{Union}
+
+Union of two intervals $Interval1(LB;UB) \cup Interval1(LB;UB) = Result(LB;UB)$
+
+if $Interval1, Interval2$ is valid then
+
+$Result.LB=min(Interval1.LB, Interval2.LB)$
+
+$Result.UB=max(Interval1.UB, Interval2.UB)$
+
+else if $Interval1$ is valid then $Result=Interval1$
+
+else if$ Interval2$ is valid then $Result=Interval2$
+
+else $Result=Ei$
+
+example: $(2,8)\cup(1,3)=(1,8)$, $(2,8)\cup Ei=(2,8)$
+
+\subsubsection{Subtraction}
+
+Subtraction of two intervals $Interval1(LB;UB) \setminus Interval1(LB;UB) = Result(LB;UB)$
 
 if $Interval1$, $Interval2$ is valid then 
 
-if min($Interval1.LB$, $Interval2.LB$)==$Interval2.LB$ $\land$ max($Interval1.HB$, $Interval2.HB$)==$Interval2.HB$ then 
-$Ei$
+if $min(Interval1.LB, Interval2.LB)==Interval2.LB\land max(Interval1.UB, Interval2.UB)==Interval2.HUB$ then 
+$Result=Ei$
 
 else
 
-$Interval2.LB$=$Interval2.LB-1$
+$Interval2.LB=Interval2.LB-1$
 
-$Interval2.HB$=$Interval2.HB+1$
+$Interval2.HB=Interval2.HB+1$
 
 if min($Interval1.LB$, $Interval2.LB$)==$Interval1.LB$ $\land$ max($Interval1.HB$, $Interval2.HB$)==$Interval1.HB \land Interval2.LB \neq -\infty \land Interval2.HB \neq +\infty$ then $Interval1$
 
@@ -147,8 +114,7 @@ else $Ei$
 
 for visual representation (\hyperref[fig:aminusb]{see figure 4.1} )
 
-ex.: $(4,6)\setminus(1,8)=Ei$, $(2,8)\setminus(4,6)=(2,8)$, $(5,8)\setminus(1,4)=(5,8)$, $(1,4)\setminus(5,8)=(1,4)$, $(1,6)\setminus(3,8)=(1,2)$, $(3,8)\setminus(1,6)=(7,8)$, $Ei\setminus(1,6)=Ei$
-\end{definition}
+example: $(4,6)\setminus(1,8)=Ei$, $(2,8)\setminus(4,6)=(2,8)$, $(5,8)\setminus(1,4)=(5,8)$, $(1,4)\setminus(5,8)=(1,4)$, $(1,6)\setminus(3,8)=(1,2)$, $(3,8)\setminus(1,6)=(7,8)$, $Ei\setminus(1,6)=Ei$
 
 \begin{figure} [!ht]
 	\centering
@@ -156,36 +122,13 @@ ex.: $(4,6)\setminus(1,8)=Ei$, $(2,8)\setminus(4,6)=(2,8)$, $(5,8)\setminus(1,4)
 	\caption{\label{fig:aminusb} Interval $A$ $\setminus$ Interval $B$ possible outcomes}
 \end{figure}
 
-\begin{definition}{Initial interval ($Ii$)=}
-	
-	An Interval where
-	
-	$LB$=$-\infty$
-	
-	$RB$=$+\infty$
-	
-	Initial interval $\equiv \Omega$ where $\Omega$ is the Full set of possible values
-	
-	($-\infty$,$+\infty$)
-\end{definition}
+\subsubsection{Complementer}
 
-
-\begin{definition}{complementer of an interval$ \overline{Interval}$=}
+Complementer of an interval$ \overline{Interval(LB;UB)}=Result(LB;UB)$
 	
-	$Ii \setminus Interval$
+$Ii \setminus Interval$ where $Ii$ is initial interval ($\Omega$)
 	
-	ex.: $\overline{(2,8)}=(-\infty,+\infty)$ ($Ii$), $\overline{(-\infty,8)}=(9,+\infty)$, $\overline{Ei}=(Ii)$
-\end{definition}
-
-\begin{definition}{inside $k \in Interval$}
-	
-	let $k$ be $\in \mathbb{Z}$ and interval $Int$ be ($k$, $k$). then if $Int \cup Interval$ == $Int$ we say $k$ is inside $Interval$
-	
-	ex.: $7 \in (2,7)$
-\end{definition}
-
-
-
+example: $\overline{(2,8)}=(-\infty,+\infty)$ ($Ii$), $\overline{(-\infty,8)}=(9,+\infty)$, $\overline{Ei}=(Ii)$
 
 %----------------------------------------------------------------------------
 \section{Interval representation}
@@ -313,7 +256,7 @@ An assignment is made of Expressions. Using the Theta Framework \hyperref[sec:re
 \end{theorem}
 {proof: }If a value is possible and we put other possibilities as well, it is trivial that the original value will still be possible.
 
- Of course we might have some values that is incorrect, however as said in \hyperref[sec:partition]{the SAAI chapter} it is tolerable to say that something is reachable even though it is not. 
+ Of course we might have some values that is incorrect, however as we already mentioned in section \ref{sec:cfaalgorithm} it is tolerable to say that something is reachable even though it is not. 
 
 \begin{theorem}
 	Let $EXpr1$, $EXpr2$ be expressions represented by $Interval1$, $Interval2$. Then the Interval representation for $Div(EXpr1, EXpr2)$ is 
@@ -522,7 +465,7 @@ Every Widening Tactic should define how to set the target's label from a source'
 \begin{theorem}
 	Let the target's new Interval be $IntervalNew$ and the previous be $IntervalOld$, then $\forall i \in IntervalOld$ it is true that $i \in  IntervalNew$.
 \end{theorem}
-{proof: } "If a location is reached and labeled, than its new label can only be less specific." \hyperref[sec:cfaalgorithm]{see previous chapter}
+{proof: } "If a location is reached and labeled, than its new label can only be less specific." see section \ref{sec:cfaalgorithm}
 
 Let there be a source's Interval representation $IerS$, targets previous interval representation $IerT$ and a statement $stmt$. No Widening Tactic<Interval representation> maps every variable to $IerT \cup IesS.IntervalforVar.apply(stmt)$.
 
@@ -563,7 +506,11 @@ Another even bigger concern that we lose some major connection between variables
 \section{interval abstraction with color classes}
 %--------------------------------------------------------------------------- 
 
+%TODO show how can it solve the var dependency problem
 
 %---------------------------------------------------------------------------
 \section{Detailed example run on a CFA}
+\label{sec:detailedEx}
 %--------------------------------------------------------------------------- 
+
+%TODO create good cfa and run the detailed example (how the intervals evaluating during analysis)

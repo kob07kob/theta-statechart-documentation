@@ -131,4 +131,86 @@ One solution for this problem is partition.
 \label{sec:widening}
 %---------------------------------------------------------------------------- 
 
+\begin{definition}{Bound}
+	A Bound is a specified whole number or Infinite (can be positive or negative) $Bound \in \mathbb{Z} \lor Bound \in \{ +\infty, -\infty \}$
+\end{definition}
+
+\begin{definition}{max($Bound1$, $Bound2$)=}
+	
+	if $Bound1 == +\infty \lor Bound2 == +\infty$ then $+\infty$
+	
+	else if $Bound1 == -\infty \lor Bound1<Bound2$ then $Bound2$
+	
+	else $Bound1$	
+\end{definition}
+
+\begin{definition}{min($Bound1$, $Bound2$)=}
+	
+	if $Bound1 == -\infty \lor Bound2 == -\infty$ then $-\infty$
+	
+	else if $Bound1 == +\infty \lor Bound1>Bound2$ then $Bound2$
+	
+	else $Bound1$	
+\end{definition}
+
+\begin{definition}{$Bound+K \in \mathbb{Z}$)=}
+	
+	if $Bound == +\infty \lor Bound == -\infty$ then $Bound1$
+	
+	else ($Bound \in \mathbb{Z}$) then $Bound+K$
+\end{definition}
+
+\begin{definition}{$|Bound|$=}
+	
+	if min($Bound$, $0$) $==0$ then $Bound$
+	
+	else $Bound*(-1)$
+\end{definition}
+
+Or
+
+\begin{definition}{$|Bound|$=}
+	
+	if $Bound \in  \mathbb{Z}$ then $|Bound|$ is the regular $absolute function$ in $\mathbb{Z}$
+	
+	else $|Bound| = +\infty$
+\end{definition}
+
+\begin{definition}{Interval}
+	An interval is specified with two Bounds: the lower Bound($LB$) and the higher Bound($HB$).
+	
+	ex.: $(2;+\infty)$, $(3;1)$
+\end{definition}
+
+\begin{definition}{Interval is valid}
+	
+	if min($LB$, $HB$) == $LB \neq +\infty \land$ max($LB$, $HB$) == $HB  \neq -\infty$
+	
+	Note: empty interval ($Ei$) $\equiv$ invalid interval
+	
+	Note2: intervals $(+\infty, +\infty)$, $(-\infty, -\infty)$ are also empty intervals 
+	
+	ex.: $(2;+\infty)$ and $(0;0)$ is valid, but $(3;1)$ is not valid $\equiv$ invalid
+\end{definition}
+
+\begin{definition}{Initial interval ($Ii$)=}
+	
+	An Interval where
+	
+	$LB$=$-\infty$
+	
+	$RB$=$+\infty$
+	
+	Initial interval $\equiv \Omega$ where $\Omega$ is the Full set of possible values
+	
+	($-\infty$,$+\infty$)
+\end{definition}
+
+\begin{definition}{inside $k \in Interval$}
+	
+	let $k$ be $\in \mathbb{Z}$ and interval $Int$ be ($k$, $k$). then if $Int \cup Interval$ == $Int$ we say $k$ is inside $Interval$
+	
+	ex.: $7 \in (2,7)$
+\end{definition}
+
 
